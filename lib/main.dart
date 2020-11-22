@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tonic/tonic.dart';
 import 'package:flutter/services.dart';
-import 'package:audioplayers/audio_cache.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'dart:convert';
 
 void main() => runApp(MyApp());
@@ -12,135 +12,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final GlobalKey _cardKey1= GlobalKey();
-  final GlobalKey _cardKey2= GlobalKey();
-  final GlobalKey _cardKey3= GlobalKey();
-  final GlobalKey _cardKey4= GlobalKey();
-  final GlobalKey _cardKey5= GlobalKey();
-  final GlobalKey _cardKey6= GlobalKey();
-  final GlobalKey _cardKey7= GlobalKey();
-  final GlobalKey _cardKey8= GlobalKey();
-  final GlobalKey _cardKey9= GlobalKey();
-  final GlobalKey _cardKey10= GlobalKey();
-  final GlobalKey _cardKey11= GlobalKey();
-  final GlobalKey _cardKey13= GlobalKey();
-  var numbers = [
-    {
-      'whatsup': ['_cardKey1', '_cardKey2', '_cardKey3','_cardKey4','_cardKey5','_cardKey6','_cardKey7','_cardKey8','_cardKey9','_cardKey10','_cardKey11','_cardKey12'],
-    },
-  ];
-
-
-  Size cardSize;
-  Offset  cardPosition;
-  @override
-  void initState(){
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition1());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition2());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition3());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition4());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition5());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition6());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition7());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition8());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition9());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition10());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition11());
-    WidgetsBinding.instance.addPostFrameCallback((_) => getSizeAndPosition12());
-
-  }
-  getSizeAndPosition1(){
-   RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-   cardSize = _cardBox.size;
-   cardPosition =_cardBox.localToGlobal(Offset.zero);
-   print(cardSize);
-   print(cardPosition);
-  }
-  getSizeAndPosition2(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition3(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition4(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition5(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition6(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition7(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition8(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition9(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition10(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition11(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-  getSizeAndPosition12(){
-    RenderBox _cardBox= _cardKey1.currentContext.findRenderObject();
-    cardSize = _cardBox.size;
-    cardPosition =_cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
-  }
-
 
   double get keyWidth => 94 + (125 * _widthRatio);
   double _widthRatio = 0.0;
-  bool _showLabels = true;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -218,14 +92,17 @@ class _MyAppState extends State<MyApp> {
       posy = localOffset.dy;
     });
   }
+
   void playSound(int soundNumber) {
-    final player = AudioCache();
-    player.play('note$soundNumber.wav');
+    final assetsAudioPlayer = AssetsAudioPlayer();
+
+    assetsAudioPlayer.open(
+      Audio("note$soundNumber.wav"),
+    );
   }
-  Widget _buildKey(int a, bool accidental,int b) {
-    var _index =b;
+
+  Widget _buildKey(int a, bool accidental) {
     final pianoKey = Stack(
-      key: numbers[_index]['whatsup'],
       children: <Widget>[
         Semantics(
             button: true,
